@@ -80,3 +80,8 @@ footer .social .social-icons .social-icon>a i:after
    position: absolute;
    margin: 330px 0;
 }
+
+.btn-primary.active:before, .btn-primary.focus:before, .btn-primary:active:before, .btn-primary:focus:before, .btn-primary:hover:before, .open>.dropdown-toggle.btn-primary:before{
+    background: rgb(234, 177, 0);
+    border:2px rgb(234, 177, 0); 
+}
