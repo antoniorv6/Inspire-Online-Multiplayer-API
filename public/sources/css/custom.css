@@ -85,3 +85,33 @@ footer .social .social-icons .social-icon>a i:after
     background: rgb(234, 177, 0);
     border:2px rgb(234, 177, 0); 
 }
+
+.navbar-btns:hover{
+    color: rgb(234, 177, 0) !important;
+}
+
+.navbar-youplay .navbar-nav>li>a:hover>.label
+{
+    color: #b48909;
+}
+
+.navbar-youplay .navbar-nav>li>a {
+    text-transform: none;
+    font-size: 13px;
+}
+
+@media (min-width: 1200px){
+    .youplay-features{
+        padding: 0 0px 0 80px !important;
+    }
+
+    .photosProjects
+    {
+        height: 170px;
+    }
+
+    .col-md-3
+    {
+        width: 30%;
+    }
+}
