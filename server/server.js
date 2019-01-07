@@ -1,14 +1,15 @@
 const express = require('express');
 const hbs = require('hbs');
 var path = require('path');
+var approot = require('app-root-path');
 
 var API = express();
 
-hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerPartials(approot + "/views/partials");
 
 API.set('view engine', 'hbs');
 
-API.use(express.static(path.join(__dirname, 'public')));
+API.use(express.static(approot + '/public'));
 
 API.get('/', (requirement, response)=>{
 

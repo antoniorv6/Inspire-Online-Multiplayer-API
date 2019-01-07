@@ -2,7 +2,7 @@
   "name": "inspireclientweb",
   "version": "1.0.0",
   "description": "REST Application for Inspire Multiplayer functionalities and Zenon Games updates",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,13 +17,14 @@
   },
   "homepage": "https://github.com/antoniorv6/APIClientINSP#readme",
   "dependencies": {
-    "express": "^4.16.4",
-    "hbs": "^4.0.1",
     "HexagonProgress": "git://github.com/nk-o/HexagonProgress.git",
+    "app-root-path": "^2.1.0",
     "bootstrap": "^3.3.7",
     "bootstrap-sweetalert": "^1.0.1",
     "bootstrap-validator": "^0.11.9",
+    "express": "^4.16.4",
     "flickity": "^2.0.11",
+    "hbs": "^4.0.1",
     "imagesloaded": "^4.1.4",
     "isotope-layout": "^3.0.5",
     "jarallax": "^1.9.3",
