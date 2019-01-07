@@ -2,7 +2,9 @@ const express = require('express');
 const hbs = require('hbs');
 var approot = require('app-root-path');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
+var userHandler = require('./userManagement');
 
 var API = express();
 
@@ -17,7 +19,6 @@ API.use(bodyParser.json());
 API.get('/', (request, response)=>{
 
     response.render('index.hbs');
-
 });
 
 API.get('/inspire', (request, response)=>{
@@ -31,8 +32,39 @@ API.get('/news', (request, response)=>{
 });
 
 API.post('/users/register', (request, response)=>{
+   var result = userHandler.register(request.body);
+   result.then((result)=>
+   {
+        var now = new Date().toString();
 
-    console.log(request.body);
+        var log = (`${now}: [NEW USER] - Success registering ${request.body.login} into the database`)
+    
+        fs.appendFile('server.log', log + '\n', (err)=>{
+            if(err)
+                console.log('Unable to append to server.log');
+        });
+        
+        var JSONResponse = 
+        {
+            user: result.username
+        };
+        console.log(JSONResponse);
+        response.status(200).send(JSON.stringify(JSONResponse));
+   },
+   (error)=>
+   {
+        var now = new Date().toString();
+
+        var log = (`${now}: [ERROR] - Failed while registering ${request.body.login} into the database. Error: ${error}`)
+
+        fs.appendFile('server.log', log + '\n', (err)=>{
+            if(err)
+                console.log('Unable to append to server.log');
+        });
+
+        response.status(400).send(error);
+   });
+
 });
 
 var port = process.env.PORT || 1137;
