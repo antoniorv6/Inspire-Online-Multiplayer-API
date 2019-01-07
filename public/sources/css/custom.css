@@ -126,3 +126,10 @@ footer .social .social-icons .social-icon>a i:after
         width: 20% !important;
     }
 }
+.alertmodal
+{
+    position: absolute;
+    margin-top: 100px;
+    width: 80%;
+    margin-left: 110px;
+}
