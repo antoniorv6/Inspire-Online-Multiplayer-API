@@ -100,6 +100,12 @@ footer .social .social-icons .social-icon>a i:after
     font-size: 13px;
 }
 
+
+.btn-success.active:before, .btn-success.focus:before, .btn-success:active:before, .btn-success:focus:before, .btn-success:hover:before, .open>.dropdown-toggle.btn-success:before {
+    border: 2px solid rgb(234, 177, 0);
+    background: rgb(234, 177, 0);
+}
+
 @media (min-width: 1200px){
     .youplay-features{
         padding: 0 0px 0 80px !important;
@@ -110,8 +116,13 @@ footer .social .social-icons .social-icon>a i:after
         height: 170px;
     }
 
-    .col-md-3
+    .col-md-3 
     {
         width: 30%;
+    }
+
+    .properties12
+    {
+        width: 20% !important;
     }
 }
