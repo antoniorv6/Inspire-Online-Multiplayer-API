@@ -67,5 +67,26 @@ API.post('/users/register', (request, response)=>{
 
 });
 
+API.post('/users/login', (request, response) => {
+
+    var query = userHandler.login(request.body);
+    var JSONResponse = {};
+
+    query.exec((err,result)=>
+    {
+        if(result == null)
+        {
+            JSONResponse = { logged: false };
+        }
+        else
+        {
+            JSONResponse = { logged: true };
+        }
+
+        response.send(JSON.stringify(JSONResponse));
+    });
+
+});
+
 var port = process.env.PORT || 1137;
 API.listen(port, ()=>{ console.log('Listening to port: ' + port) });
