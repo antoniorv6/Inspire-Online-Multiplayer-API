@@ -29,16 +29,26 @@
 
 .custombannerwhite
 {
-    background: #ffffff;
+    background: black;
+}
+
+.youplay-banner .image{
+    opacity: 1;
+    position: relative;
+}
+
+.angled-img .img>img{
+    opacity: 1;
 }
 
 .custombannerblack
 {
-    background: #484848;
+    background: black;
 }
+
 .navbar-youplay.navbar-small
 {
-    background: #212121;
+    background: black;
 }
 
 body
