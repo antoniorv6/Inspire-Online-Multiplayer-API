@@ -1,0 +1,66 @@
+/**
+ * 
+ * Type your custom styles
+ *
+ */
+.navbar-youplay
+{
+    background: #212121;
+}
+.navbar-brand>img
+{
+    margin-top: 12%;
+}
+
+.page-preloader
+{
+    background: #212121;
+}
+
+.button-navbar
+{
+    margin-top: 1.2em;
+}
+
+.navbar-youplay.navbar-small .button-navbar
+{
+    margin-top: .5em;
+}
+
+.custombannerwhite
+{
+    background: #ffffff;
+}
+
+.custombannerblack
+{
+    background: #484848;
+}
+.navbar-youplay.navbar-small
+{
+    background: #212121;
+}
+
+body
+{
+    background: #484848;
+}
+
+.modal-content
+{
+    background: #212121;
+}
+
+footer .social{
+    background:#212121;
+}
+
+footer .social .social-icons .social-icon>a i:after
+{
+    background: #737373;
+}
+
+.angled-img .img 
+{
+    background: none;
+}
