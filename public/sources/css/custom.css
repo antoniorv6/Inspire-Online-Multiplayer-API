@@ -5,7 +5,7 @@
  */
 .navbar-youplay
 {
-    background: #212121;
+    background: black;
 }
 .navbar-brand>img
 {
@@ -14,7 +14,7 @@
 
 .page-preloader
 {
-    background: #212121;
+    background: black;
 }
 
 .button-navbar
@@ -53,7 +53,7 @@
 
 body
 {
-    background: #484848;
+    background: #0a0a0a;
 }
 
 .modal-content
@@ -62,7 +62,7 @@ body
 }
 
 footer .social{
-    background:#212121;
+    background:black;
 }
 
 footer .social .social-icons .social-icon>a i:after
@@ -73,4 +73,10 @@ footer .social .social-icons .social-icon>a i:after
 .angled-img .img 
 {
     background: none;
+}
+
+.custom-btn
+{
+   position: absolute;
+   margin: 330px 0;
 }
