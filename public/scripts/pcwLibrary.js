@@ -53,21 +53,6 @@ function UserManagement()
 	}
 }
 
-function ModalManagement()
-{
-	var isModalSet = false;
-
-	this.changeStatus = function(status)
-	{
-		isModalSet = status;
-	}
-
-	this.getModalStatus = function()
-	{
-		return isModalSet;
-	}
-}
-
 function FileManager()
 {
 	var lastImagesrc = undefined;
@@ -153,44 +138,6 @@ RequestInterface.prototype.getRequestFETCH = function(url, callbacksuccess)
 			);
 }
 
-RequestInterface.prototype.getRequestAJAX = function(url, callbacksuccess)
-{
-	xhr = new XMLHttpRequest();
-
-	xhr.open('GET', this.geturl(url), true);
-
-	xhr.onload = function()
-	{
-		callbacksuccess(xhr.responseText);
-	}
-
-	xhr.send();
-}
-
-RequestInterface.prototype.postRequestAJAX = function (url, form, callbacksuccess, isHeaderRequired, isUserRequired)
-{
-	let formData = new FormData(form),
-		xhr = new XMLHttpRequest();
-
-	xhr.open('POST', this.geturl(url), true);
-	xhr.onload = function()
-	{
-		callbacksuccess(xhr.responseText);
-	}
-
-	if(isHeaderRequired)
-	{
-		xhr.setRequestHeader('Authorization', userManager.getKey());
-	}
-
-	if(isUserRequired)
-	{
-		formData.append('l', userManager.getLogin())
-	}
-
-	xhr.send(formData);
-}
-
 RequestInterface.prototype.postRequestFETCH = function (url, form, callbacksuccess)
 {
 	let formData = new FormData(form);
@@ -216,56 +163,6 @@ RequestInterface.prototype.postRequestFETCH = function (url, form, callbacksucce
 
 }
 
-ModalManagement.prototype.setModalZone = function()
-{
-	if(!this.getModalStatus())
-	{
-		let body = document.querySelector('body'),
-			modal = document.createElement("div"),
-			modalCont = document.createElement("div");
-
-		//Esta zona la podeis editar como queráis, yo creo que es la forma mas facil de hacer un modal tranquilamente, pero ya como querais
-		modal.id = "mensajemodal";
-		modal.classList.add('modal');
-		modalCont.classList.add('modal-content');
-		modal.appendChild(modalCont);	
-		body.insertBefore(modal, body.firstChild);
-		this.changeStatus(true);
-	}
-}
-
-ModalManagement.prototype.openModal = function(success, title, message)
-{
-	//******PODEIS PERSONALIZAR COMO QUERAIS******//
-
-	if(this.getModalStatus())
-	{
-		document.getElementById('mensajemodal').style.display = 'block';
-
-		if(success)
-		{
-			document.querySelector('.modal-content').innerHTML += `<h3 class="success">${title}</h3>
-			${message}
-			<button onclick="modalManager.closeModal()">Volver</button>`;
-		}
-		else
-		{
-			document.querySelector('.modal-content').innerHTML += `<h3 class="fail">${title}</h3>
-			${message}
-			<button onclick="modalManager.closeModal()">Volver</button>`;
-		}
-	}
-}
-
-ModalManagement.prototype.closeModal = function()
-{
-	//******PODEIS PERSONALIZAR COMO QUERAIS******//
-	if(this.getModalStatus())
-	{
-		document.getElementById('mensajemodal').style.display = 'none';
-		document.querySelector('.modal-content').innerHTML = null;
-	}
-}
 
 FileManager.prototype.chargePhoto = function(file, callbacksuccess)
 {
@@ -324,6 +221,5 @@ CanvasManager.prototype.drawImageOnCanvas = function(file, canvasID)
 
 let reqInterface = new RequestInterface(),
 	userManager = new UserManagement();
-	modalManager = new ModalManagement();
 	fileManager = new FileManager();
 	cvManager = new CanvasManager();
