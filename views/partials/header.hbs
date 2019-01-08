@@ -88,17 +88,32 @@
               <a href="about.html" role="button" class="navbar-btns" aria-expanded="false">About<span class="label">the team</span></a>
             </li>
           </ul>
+          
+          {{#if user}}
+          <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown dropdown-hover">
+            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                {{user}}<span class="label">welcome</span>
+            </a>
+          </li>
+          <li>
+            <button type="button" class="btn button-navbar btn-primary" data-toggle="modal" data-target="#login">Logout</button>
+          </li>
+          </ul>
+
+          {{else}}
           <ul class="nav navbar-nav navbar-right">
               <li>
                   <button type="button" class="btn button-navbar btn-primary" data-toggle="modal" data-target="#login">Login</button>
                   <button type="button" class="btn button-navbar btn-primary" data-toggle="modal" data-target="#register">Register</button>
               </li>
           </ul>
+          {{/if}}
+        
         </div>
       </div>
     </nav>
     <!-- /Navbar -->
-
      <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -108,15 +123,14 @@
             <h2 class="modal-title" id="myModalLabel">LOG IN</h2>
           </div>
           <div class="modal-body">
-
-            <form>
+            <form id="loginForm">
                 <div class="youplay-input">
                   <input type="text" name="login" placeholder="Login">
                 </div>
                 <div class="youplay-input">
                   <input type="password" name="password" placeholder="Password">
                 </div>
-                <button class="btn btn-success db">Login</button>
+                <button class="btn btn-success db" onclick="return LoginUser()">Login</button>
             </form>
 
           </div>

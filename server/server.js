@@ -3,6 +3,7 @@ const hbs = require('hbs');
 var approot = require('app-root-path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var sessionStorage = require('session-storage').create();
 
 var userHandler = require('./userManagement');
 
@@ -16,9 +17,12 @@ API.use(express.static(approot + '/public'));
 
 API.use(bodyParser.json());
 
-API.get('/', (request, response)=>{
-
-    response.render('index.hbs');
+API.get('/', (request, response)=>
+{
+    sessionStorage.getValue('session', (error,result)=>{
+        console.log(result);
+        response.render('index.hbs', { user: result });
+    });
 });
 
 API.get('/inspire', (request, response)=>{
@@ -80,9 +84,13 @@ API.post('/users/login', (request, response) => {
         }
         else
         {
-            JSONResponse = { logged: true };
+            sessionStorage.setValue('session', request.body.login, (error,result)=>{
+            });
+            JSONResponse = { 
+                logged: true, 
+                user: result
+            };
         }
-
         response.send(JSON.stringify(JSONResponse));
     });
 
