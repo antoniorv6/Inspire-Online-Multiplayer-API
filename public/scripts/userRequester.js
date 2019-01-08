@@ -34,9 +34,10 @@ function LoginUser()
             console.log(responsejson);
             if(responsejson.logged == true)
             {
+                location.reload();
             }
         });
     }
 
-    return true;
+    return false;
 }

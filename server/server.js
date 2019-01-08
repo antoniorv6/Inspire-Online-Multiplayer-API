@@ -81,17 +81,16 @@ API.post('/users/login', (request, response) => {
         if(result == null)
         {
             JSONResponse = { logged: false };
+            response.send(JSON.stringify(JSONResponse));
         }
         else
         {
-            sessionStorage.setValue('session', request.body.login, (error,result)=>{
+            sessionStorage.setValue('session', request.body.login, (error,result)=>
+            {
+                JSONResponse = { logged: true };
+                response.send(JSON.stringify(JSONResponse));
             });
-            JSONResponse = { 
-                logged: true, 
-                user: result
-            };
         }
-        response.send(JSON.stringify(JSONResponse));
     });
 
 });
