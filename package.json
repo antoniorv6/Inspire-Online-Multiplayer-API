@@ -36,6 +36,7 @@
     "moment-timezone": "^0.5.14",
     "mongoose": "^5.4.2",
     "object-fit-images": "^3.2.3",
+    "session-storage": "^1.0.1",
     "social-likes": "^3.1.3"
   }
 }

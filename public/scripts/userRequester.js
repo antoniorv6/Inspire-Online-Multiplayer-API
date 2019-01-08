@@ -20,3 +20,24 @@ function RegisterUser()
 
     return false;
 }
+
+function LoginUser()
+{
+    let loginForm = document.querySelector('#loginForm');
+
+    reqInterface.postRequestFETCH('/users/login', loginForm, checkResponse)
+
+    function checkResponse(response)
+    {
+        response.json().then(function(responsejson)
+        {
+            console.log(responsejson);
+            if(responsejson.logged == true)
+            {
+                location.reload();
+            }
+        });
+    }
+
+    return false;
+}

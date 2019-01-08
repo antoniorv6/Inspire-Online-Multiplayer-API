@@ -17,6 +17,19 @@ var registerUser = (registerForm) =>
     return result;
 }
 
+var loginUser = (loginform) =>
+{
+    var query = User.findOne(
+    {
+        username: loginform.login,
+        password: loginform.password 
+    });
+    
+    return query;
+
+};
+
 module.exports = {
-    register: registerUser
+    register: registerUser,
+    login: loginUser
 };

@@ -35,6 +35,7 @@
 .youplay-banner .image{
     opacity: 1;
     position: relative;
+    height: 1000px;
 }
 
 .angled-img .img>img{
@@ -75,10 +76,10 @@ footer .social .social-icons .social-icon>a i:after
     background: none;
 }
 
-.custom-btn
+.youplay-banner .custom-btn
 {
    position: absolute;
-   margin: 330px 0;
+   bottom: 80px;
 }
 
 .btn-primary.active:before, .btn-primary.focus:before, .btn-primary:active:before, .btn-primary:focus:before, .btn-primary:hover:before, .open>.dropdown-toggle.btn-primary:before{
