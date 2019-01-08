@@ -138,3 +138,13 @@ footer .social .social-icons .social-icon>a i:after
 footer{
     background-image: url("sources/img/fondito.png") !important;
 }
+
+.youplay-banner .image2 {
+    width: 100%;
+    height: 600px;
+    background-repeat: no-repeat;
+}
+.full .youplay-banner .image2, .wide .youplay-banner .image2, .youplay-banner .image2, .youplay-banner-parallax.youplay-banner .image2 {
+    background-position: 50% 50%;
+    background-size: cover;
+}
