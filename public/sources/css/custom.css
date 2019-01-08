@@ -133,3 +133,7 @@ footer .social .social-icons .social-icon>a i:after
     width: 80%;
     margin-left: 110px;
 }
+
+footer{
+    background-image: url("sources/img/fondito.png") !important;
+}
