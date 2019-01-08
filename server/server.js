@@ -95,5 +95,15 @@ API.post('/users/login', (request, response) => {
 
 });
 
+API.get('/logout', (request, response)=>{
+    
+    sessionStorage.removeValue('session', (error, result)=>
+    {
+        response.send({});
+    });
+    
+});
+
+
 var port = process.env.PORT || 1137;
 API.listen(port, ()=>{ console.log('Listening to port: ' + port) });

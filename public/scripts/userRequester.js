@@ -41,3 +41,13 @@ function LoginUser()
 
     return false;
 }
+
+function Logout()
+{
+    reqInterface.getRequestFETCH('/logout', logoutprocc);
+
+    function logoutprocc()
+    {
+        location.reload();
+    }
+}
