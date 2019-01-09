@@ -35,6 +35,25 @@ API.get('/news', (request, response)=>{
     response.render('news.hbs');
 });
 
+API.get('/user', (request, response) => {
+
+    sessionStorage.getValue('session', (error,result)=>{
+        if(result==null)
+            response.redirect('/');
+        response.render('user.hbs', { user: result });
+    });
+
+});
+
+API.get('/logout', (request, response)=>{
+    
+    sessionStorage.removeValue('session', (error, result)=>
+    {
+        response.send({});
+    });
+    
+});
+
 API.post('/users/register', (request, response)=>{
    var result = userHandler.register(request.body);
    result.then((result)=>
@@ -93,15 +112,6 @@ API.post('/users/login', (request, response) => {
         }
     });
 
-});
-
-API.get('/logout', (request, response)=>{
-    
-    sessionStorage.removeValue('session', (error, result)=>
-    {
-        response.send({});
-    });
-    
 });
 
 
