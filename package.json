@@ -25,6 +25,7 @@
     "bootstrap-sweetalert": "^1.0.1",
     "bootstrap-validator": "^0.11.9",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "flickity": "^2.0.11",
     "hbs": "^4.0.1",
     "imagesloaded": "^4.1.4",

@@ -3,7 +3,7 @@ const hbs = require('hbs');
 var approot = require('app-root-path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var sessionStorage = require('session-storage').create();
+var sessionStorage = require('express-session')
 
 var userHandler = require('./userManagement');
 
@@ -15,14 +15,17 @@ API.set('view engine', 'hbs');
 
 API.use(express.static(approot + '/public'));
 
+API.use(sessionStorage({secret: 'Seeeecreet'}));
+
 API.use(bodyParser.json());
+
+var session;
 
 API.get('/', (request, response)=>
 {
-    sessionStorage.getValue('session', (error,result)=>{
-        console.log(result);
-        response.render('index.hbs', { user: result });
-    });
+    session = request.session;
+    console.log(session.user);
+    response.render('index.hbs', { user: session.user });
 });
 
 API.get('/inspire', (request, response)=>{
@@ -37,21 +40,19 @@ API.get('/news', (request, response)=>{
 
 API.get('/user', (request, response) => {
 
-    sessionStorage.getValue('session', (error,result)=>{
-        if(result==null)
-            response.redirect('/');
-        response.render('user.hbs', { user: result });
-    });
-
+    session = request.session;
+    if(session.user == undefined)
+        response.redirect('/');
+    
+        response.render('user.hbs', { user: result })
 });
 
 API.get('/logout', (request, response)=>{
-    
-    sessionStorage.removeValue('session', (error, result)=>
-    {
+
+    request.session.destroy((err)=>{
         response.send({});
     });
-    
+        
 });
 
 API.post('/users/register', (request, response)=>{
@@ -104,15 +105,14 @@ API.post('/users/login', (request, response) => {
         }
         else
         {
-            sessionStorage.setValue('session', request.body.login, (error,result)=>
-            {
-                JSONResponse = { logged: true };
-                response.send(JSON.stringify(JSONResponse));
-            });
+            session = request.session;
+            session.user = request.body.login;
+            JSONResponse = { logged: true };
+            response.send(JSON.stringify(JSONResponse));
         }
     });
 
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 1137;
 API.listen(port, ()=>{ console.log('Listening to port: ' + port) });
