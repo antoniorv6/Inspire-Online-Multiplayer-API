@@ -83,17 +83,17 @@ footer .social .social-icons .social-icon>a i:after
 }
 
 .btn-primary.active:before, .btn-primary.focus:before, .btn-primary:active:before, .btn-primary:focus:before, .btn-primary:hover:before, .open>.dropdown-toggle.btn-primary:before{
-    background: rgb(234, 177, 0);
-    border:2px rgb(234, 177, 0); 
+    background: #002fff;
+    border:2px #002fff;
 }
 
 .navbar-btns:hover{
-    color: rgb(234, 177, 0) !important;
+    color: #002fff !important;
 }
 
 .navbar-youplay .navbar-nav>li>a:hover>.label
 {
-    color: #b48909;
+    color: #002fff;
 }
 
 .navbar-youplay .navbar-nav>li>a {
@@ -103,8 +103,8 @@ footer .social .social-icons .social-icon>a i:after
 
 
 .btn-success.active:before, .btn-success.focus:before, .btn-success:active:before, .btn-success:focus:before, .btn-success:hover:before, .open>.dropdown-toggle.btn-success:before {
-    border: 2px solid rgb(234, 177, 0);
-    background: rgb(234, 177, 0);
+    border: 2px solid #002fff;
+    background: #002fff;
 }
 
 @media (min-width: 1200px){
