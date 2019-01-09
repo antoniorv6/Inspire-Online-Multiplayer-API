@@ -114,6 +114,5 @@ API.post('/users/login', (request, response) => {
 
 });
 
-
-var port = process.env.PORT || 1137;
+var port = process.env.PORT || 3000;
 API.listen(port, ()=>{ console.log('Listening to port: ' + port) });
