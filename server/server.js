@@ -116,10 +116,12 @@ API.post('/users/login', (request, response) => {
 
 
 API.get('/testGetConn', (request, response)=>{
+    console.log('Test GET connection received');
     response.send({received: "ok"});
 });
 
 API.post('/testPostConn', (request,response)=>{
+    console.log('Test POST connection received');
     response.send(request.body);
 });
 
