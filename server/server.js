@@ -114,5 +114,16 @@ API.post('/users/login', (request, response) => {
 
 });
 
+
+API.get('/testGetConn', (request, response)=>{
+    response.send({received: "ok"});
+});
+
+API.post('/testPostConn', (request,response)=>{
+    response.send(request.body);
+});
+
+
+
 var port = process.env.PORT || 1137;
 API.listen(port, ()=>{ console.log('Listening to port: ' + port) });
