@@ -6,6 +6,7 @@ var fs = require('fs');
 var sessionStorage = require('express-session')
 
 var userHandler = require('./userManagement');
+var roomHandler = require('./roomManagement');
 
 var API = express();
 
@@ -38,13 +39,21 @@ API.get('/news', (request, response)=>{
     response.render('news.hbs');
 });
 
-API.get('/user', (request, response) => {
+API.get('/profile', (request, response) => {
 
     session = request.session;
     if(session.user == undefined)
         response.redirect('/');
     
-        response.render('user.hbs', { user: result })
+        response.render('user.hbs', { user: session.user })
+});
+
+API.get('/activeusers', (request, response) => {
+    response.send('ActiveUsersPage');
+});
+
+API.get('/user', (request,response)=>{
+    response.send('Entering the page of certain user');
 });
 
 API.get('/logout', (request, response)=>{
@@ -114,6 +123,36 @@ API.post('/users/login', (request, response) => {
 
 });
 
+API.post('/users/addFriend', (request,response)=>{
+
+    response.send('Adding a new friend');
+
+});
+
+API.get('/rooms', (request,response)=>{
+
+    var result = roomHandler.getAllRooms();
+
+    result.then((result)=>{
+
+        response.send(result);
+
+    }, (error)=>{});
+
+});
+
+API.post('/rooms/registerRoom', (request, response)=>{
+
+    var result = roomHandler.newRoom(request.body);
+
+    result.then((result)=>{
+        response.send('Room registered correctly');
+    }, 
+    (err)=>{
+        response.status(400).send('Error entering the room');
+    });
+
+});
 
 API.get('/testGetConn', (request, response)=>{
     console.log('Test GET connection received');
