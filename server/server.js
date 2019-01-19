@@ -156,7 +156,11 @@ API.post('/rooms/registerRoom', (request, response)=>{
 
 API.get('/testGetConn', (request, response)=>{
     console.log('Test GET connection received');
-    response.send({received: true});
+    response.send(
+        {
+            received: true,
+            living: false
+        });
 });
 
 API.post('/testPostConn', (request,response)=>{
