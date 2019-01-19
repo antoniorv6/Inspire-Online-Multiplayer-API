@@ -156,14 +156,13 @@ API.post('/rooms/registerRoom', (request, response)=>{
 
 API.get('/testGetConn', (request, response)=>{
     console.log('Test GET connection received');
-    response.send({received: "ok"});
+    response.send({received: true});
 });
 
 API.post('/testPostConn', (request,response)=>{
     console.log('Test POST connection received');
     response.send(request.body);
 });
-
 
 
 var port = process.env.PORT || 1137;
