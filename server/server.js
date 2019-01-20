@@ -123,6 +123,27 @@ API.post('/users/login', (request, response) => {
 
 });
 
+API.post('/users/api/login', (request, response) => {
+
+    var query = userHandler.login(request.body);
+    var JSONResponse = {};
+
+    query.exec((err,result)=>
+    {
+        if(result == null)
+        {
+            JSONResponse = { logged: false };
+            response.send(JSON.stringify(JSONResponse));
+        }
+        else
+        {
+            JSONResponse = { logged: true };
+            response.send(JSON.stringify(JSONResponse));
+        }
+    });
+
+});
+
 API.post('/users/addFriend', (request,response)=>{
 
     response.send('Adding a new friend');
@@ -137,7 +158,10 @@ API.get('/rooms', (request,response)=>{
 
         response.send(result);
 
-    }, (error)=>{});
+    }, (error)=>{
+
+        response.send('Error');
+    });
 
 });
 
@@ -146,7 +170,7 @@ API.post('/rooms/registerRoom', (request, response)=>{
     var result = roomHandler.newRoom(request.body);
 
     result.then((result)=>{
-        response.send('Room registered correctly');
+        response.send(true);
     }, 
     (err)=>{
         response.status(400).send('Error entering the room');
