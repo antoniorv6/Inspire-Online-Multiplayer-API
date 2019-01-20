@@ -170,10 +170,10 @@ API.post('/rooms/registerRoom', (request, response)=>{
     var result = roomHandler.newRoom(request.body);
 
     result.then((result)=>{
-        response.send(true);
+        response.send({'result':true});
     }, 
     (err)=>{
-        response.status(400).send('Error entering the room');
+        response.status(400).send({'result':false});
     });
 
 });
