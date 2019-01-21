@@ -156,7 +156,7 @@ API.get('/rooms', (request,response)=>{
 
     result.then((result)=>{
 
-        response.send(result);
+        response.send({"result": result});
 
     }, (error)=>{
 
