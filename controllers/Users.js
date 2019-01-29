@@ -3,9 +3,16 @@ var {User}     = require('../MongoDB/Models/user');
 
 var express     = require('express');
 var APIRouter  = express.Router();
+const fs        = require('fs');
+
+var {authenticate} = require('./middleware/authenticate')
 
 APIRouter.get('/user', (request,response)=>{
     response.send('Entering the page of certain user');
+});
+
+APIRouter.get('/profile', authenticate, (request, response) => {
+    response.send('yay');    
 });
 
 APIRouter.get('/logout', (request, response)=>{
@@ -20,21 +27,25 @@ APIRouter.post('/register', (request, response)=>{
    var result = registerUser(request.body);
    result.then((result)=>
    {
-        var now = new Date().toString();
+        return result.generateAuthToken().then((token)=>{
+            
+            var now = new Date().toString();
 
-        var log = (`${now}: [NEW USER] - Success registering ${request.body.login} into the database`)
+            var log = (`${now}: [NEW USER] - Success registering ${request.body.login} into the database`)
     
-        fs.appendFile('server.log', log + '\n', (err)=>{
-            if(err)
-                console.log('Unable to append to server.log');
-        });
+            fs.appendFile('server.log', log + '\n', (err)=>{
+                if(err)
+                    console.log('Unable to append to server.log');
+            });
         
-        var JSONResponse = 
-        {
-            user: result.username
-        };
-        console.log(JSONResponse);
-        response.status(200).send(JSON.stringify(JSONResponse));
+            var JSONResponse = 
+            {
+                user: result.username,
+            };
+            console.log(JSONResponse);
+            response.status(200).header('x-auth',token).send(JSON.stringify(JSONResponse));
+        });    
+
    },
    (error)=>
    {
@@ -96,11 +107,8 @@ APIRouter.post('/APIRouter/login', (request, response) => {
 
 });
 
-
-
 function registerUser(registerForm) 
 {
-    console.log(registerForm);
     var newUser = new User(
         {
             username: registerForm.login,

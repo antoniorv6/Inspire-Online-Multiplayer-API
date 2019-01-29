@@ -46,15 +46,6 @@ API.get('/news', (request, response)=>{
     response.render('news.hbs');
 });
 
-API.get('/profile', (request, response) => {
-
-    session = request.session;
-    if(session.user == undefined)
-        response.redirect('/');
-    
-        response.render('user.hbs', { user: session.user })
-});
-
 API.get('/activeusers', (request, response) => {
     response.send('ActiveUsersPage');
 });
