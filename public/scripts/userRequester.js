@@ -44,7 +44,7 @@ function LoginUser()
 
 function Logout()
 {
-    reqInterface.getRequestFETCH('/logout', logoutprocc);
+    reqInterface.getRequestFETCH('/users/logout', logoutprocc);
 
     function logoutprocc()
     {
