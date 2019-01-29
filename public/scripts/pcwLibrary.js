@@ -163,6 +163,24 @@ RequestInterface.prototype.postRequestFETCH = function (url, form, callbacksucce
 
 }
 
+RequestInterface.prototype.deleteRequestFETCH = function(url, callbacksuccess)
+{
+	let data = {'method' : 'DELETE'};
+	let jsonHeader = {'x-auth': sessionStorage.getItem('Token')};
+	data["headers"] = jsonHeader;
+
+	fetch(this.geturl(url), data).then(
+		function(result)
+		{
+			callbacksuccess(result);
+		},
+		function(error)
+		{
+
+		}
+	);
+}
+
 
 FileManager.prototype.chargePhoto = function(file, callbacksuccess)
 {
@@ -216,8 +234,6 @@ CanvasManager.prototype.drawImageOnCanvas = function(file, canvasID)
 		console.log('todook');
 	}
 }
-
-
 
 let reqInterface = new RequestInterface(),
 	userManager = new UserManagement();

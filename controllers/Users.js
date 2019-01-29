@@ -15,14 +15,6 @@ APIRouter.get('/profile', authenticate, (request, response) => {
     response.send('yay');    
 });
 
-APIRouter.get('/logout', (request, response)=>{
-
-    request.session.destroy((err)=>{
-        response.send({});
-    });
-        
-});
-
 APIRouter.post('/register', (request, response)=>{
    var result = registerUser(request.body);
    result.then((result)=>
@@ -64,13 +56,10 @@ APIRouter.post('/register', (request, response)=>{
 });
 
 APIRouter.post('/login', (request, response) => {
-
-    console.log(request.body.login);
-    console.log(request.body.password);
     User.findByCredentials(request.body.login, request.body.password).then((user)=>
     {
         return user.generateAuthToken().then((token)=>{
-            response.header('x-auth', token).send({logged:true});
+            response.header('x-auth', token).send({logged:true, username: user.username});
         });
     }).catch((error)=>{
         response.status(400).send();
@@ -78,22 +67,19 @@ APIRouter.post('/login', (request, response) => {
 });
 
 APIRouter.post('/APIRouter/login', (request, response) => {
-
-    var query = loginUser(request.body);
-    var JSONResponse = {};
-
-    query.exec((err,result)=>
+    User.findByCredentials(request.body.login, request.body.password).then((user)=>
     {
-        if(result == null)
-        {
-            JSONResponse = { logged: false };
-            response.send(JSON.stringify(JSONResponse));
-        }
-        else
-        {
-            JSONResponse = { logged: true };
-            response.send(JSON.stringify(JSONResponse));
-        }
+        response.send({logged:true});
+    }).catch((error)=>{
+        response.status(400).send();
+    });
+});
+
+APIRouter.delete('/logout', authenticate, (request, response)=>{
+    request.user.removeToken(request.token).then(()=>{
+        response.status(200).send();
+    }, ()=>{
+        response.status(400).send();
     });
 
 });
@@ -113,15 +99,4 @@ function registerUser(registerForm)
     return result;
 }
 
-var loginUser = (loginform) =>
-{
-    var query = User.findOne(
-    {
-        username: loginform.login,
-        password: loginform.password 
-    });
-    
-    return query;
-
-};
 module.exports = APIRouter;

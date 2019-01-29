@@ -3,7 +3,6 @@ const hbs = require('hbs');
 var approot = require('app-root-path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var sessionStorage = require('express-session')
 
 var UserController = require('../controllers/Users');
 var RoomController = require('../controllers/Rooms');
@@ -16,8 +15,6 @@ API.set('view engine', 'hbs');
 
 API.use(express.static(approot + '/public'));
 
-API.use(sessionStorage({secret: 'Seeeecreet'}));
-
 API.use(bodyParser.json());
 
 //############### Declaration of API Controllers ################
@@ -27,11 +24,8 @@ API.use('/rooms', RoomController);
 
 //##############################################################
 
-var session;
-
 API.get('/', (request, response)=>
 {
-    console.log(request.params.sessionToken);
     response.render('index.hbs', {user:undefined});
 });
 

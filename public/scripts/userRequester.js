@@ -35,6 +35,7 @@ function LoginUser()
             if(responsejson.logged == true)
             {
                 sessionStorage.setItem('Token', response.headers.get('x-auth'));
+                sessionStorage.setItem('User',  responsejson.username);
                 location.reload();
             }
         });
@@ -45,10 +46,12 @@ function LoginUser()
 
 function Logout()
 {
-    reqInterface.getRequestFETCH('/users/logout', logoutprocc);
+    reqInterface.deleteRequestFETCH('/users/logout', logoutprocc);
 
     function logoutprocc()
     {
+        sessionStorage.removeItem('Token');
+        sessionStorage.removeItem('User');
         location.reload();
     }
 }
