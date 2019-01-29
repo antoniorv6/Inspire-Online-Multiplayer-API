@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-
 var RoomSchema = new mongoose.Schema(
     {
         roomID:

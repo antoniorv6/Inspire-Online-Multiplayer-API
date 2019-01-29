@@ -56,6 +56,16 @@ APIRouter.post('/deleteRoom', (request,response)=>{
 
 });
 
+APIRouter.get('/users', (request,response)=>{
+    
+    Room.findOne({roomID: request.body.roomID}).then((room)=>{
+        response.status(200).send({users : room.usersconnected})
+    },
+    ).catch(()=>{
+        response.status(404).send('Room could not be found');
+    });
+});
+
 function registerRoom(registerForm)
 {
     var newRoom = new Room(
