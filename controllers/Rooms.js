@@ -32,6 +32,30 @@ APIRouter.post('/registerRoom', (request, response)=>{
 
 });
 
+APIRouter.post('/joinRoom', (request,response)=>{
+    
+    Room.JoinUserIntoRoom(request.body.roomID, request.body.user).then(
+        (result)=>{
+            response.status(200).send();
+        }).catch(()=>{
+            response.status(400).send();
+        });
+
+});
+
+APIRouter.post('/deleteRoom', (request,response)=>{
+
+    Room.findOneAndDelete({
+        roomID: request.body.roomID
+    }).then((result)=>{
+        response.status(200).send({deleted: true});
+    },  
+    (error)=>{
+        response.status(400).send()
+    });
+
+});
+
 function registerRoom(registerForm)
 {
     var newRoom = new Room(
