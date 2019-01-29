@@ -65,25 +65,16 @@ APIRouter.post('/register', (request, response)=>{
 
 APIRouter.post('/login', (request, response) => {
 
-    var query = loginUser(request.body);
-    var JSONResponse = {};
-
-    query.exec((err,result)=>
+    console.log(request.body.login);
+    console.log(request.body.password);
+    User.findByCredentials(request.body.login, request.body.password).then((user)=>
     {
-        if(result == null)
-        {
-            JSONResponse = { logged: false };
-            response.send(JSON.stringify(JSONResponse));
-        }
-        else
-        {
-            session = request.session;
-            session.user = request.body.login;
-            JSONResponse = { logged: true };
-            response.send(JSON.stringify(JSONResponse));
-        }
+        return user.generateAuthToken().then((token)=>{
+            response.header('x-auth', token).send({logged:true});
+        });
+    }).catch((error)=>{
+        response.status(400).send();
     });
-
 });
 
 APIRouter.post('/APIRouter/login', (request, response) => {
@@ -122,7 +113,7 @@ function registerUser(registerForm)
     return result;
 }
 
-function loginUser(loginform)
+var loginUser = (loginform) =>
 {
     var query = User.findOne(
     {
@@ -133,6 +124,4 @@ function loginUser(loginform)
     return query;
 
 };
-
-
 module.exports = APIRouter;

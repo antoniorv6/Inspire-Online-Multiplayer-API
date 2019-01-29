@@ -34,6 +34,7 @@ function LoginUser()
             console.log(responsejson);
             if(responsejson.logged == true)
             {
+                sessionStorage.setItem('Token', response.headers.get('x-auth'));
                 location.reload();
             }
         });

@@ -31,9 +31,8 @@ var session;
 
 API.get('/', (request, response)=>
 {
-    session = request.session;
-    console.log(session.user);
-    response.render('index.hbs', { user: session.user });
+    console.log(request.params.sessionToken);
+    response.render('index.hbs', {user:undefined});
 });
 
 API.get('/inspire', (request, response)=>{
