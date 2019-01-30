@@ -45,11 +45,13 @@ APIRouter.post('/joinRoom', (request,response)=>{
 
 APIRouter.post('/deleteRoom', (request,response)=>{
 
+    console.log(request.body.roomID);
     Room.findOneAndDelete({
         roomID: request.body.roomID
     }).then((result)=>{
         if(!result)
                 response.status(404).send({deleted:false});
+
         response.status(200).send({deleted:true, result: result});
     },  
     (error)=>{
