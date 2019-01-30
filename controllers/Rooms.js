@@ -36,9 +36,9 @@ APIRouter.post('/joinRoom', (request,response)=>{
     
     Room.JoinUserIntoRoom(request.body.roomID, request.body.user).then(
         (result)=>{
-            response.status(200).send();
+            response.status(200).send({joined:true});
         }).catch(()=>{
-            response.status(400).send();
+            response.status(400).send({joined:false});
         });
 
 });
@@ -48,10 +48,10 @@ APIRouter.post('/deleteRoom', (request,response)=>{
     Room.findOneAndDelete({
         roomID: request.body.roomID
     }).then((result)=>{
-        response.status(200).send({deleted: true});
+        response.status(200).send({deleted:true});
     },  
     (error)=>{
-        response.status(400).send()
+        response.status(400).send({deleted:false})
     });
 
 });
