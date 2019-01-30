@@ -48,7 +48,7 @@ APIRouter.post('/deleteRoom', (request,response)=>{
     Room.findOneAndDelete({
         roomID: request.body.roomID
     }).then((result)=>{
-        response.status(200).send({deleted:true});
+        response.status(200).send({deleted:true, result: result});
     },  
     (error)=>{
         response.status(400).send({deleted:false})
