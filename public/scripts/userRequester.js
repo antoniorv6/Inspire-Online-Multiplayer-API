@@ -2,7 +2,7 @@ function RegisterUser()
 {
     let registerForm = document.querySelector('#registerUserForm');
     
-    reqInterface.postRequestFETCH('/users/register', registerForm, checkResponse);
+    reqInterface.postRequestFETCH('/users/register', registerForm, false, checkResponse);
     function checkResponse(response)
     {
         response.json().then(function(responsejs)
@@ -25,7 +25,7 @@ function LoginUser()
 {
     let loginForm = document.querySelector('#loginForm');
 
-    reqInterface.postRequestFETCH('/users/login', loginForm, checkResponse)
+    reqInterface.postRequestFETCH('/users/login', loginForm, false, checkResponse)
 
     function checkResponse(response)
     {
@@ -34,8 +34,8 @@ function LoginUser()
             console.log(responsejson);
             if(responsejson.logged == true)
             {
-                sessionStorage.setItem('Token', response.headers.get('x-auth'));
-                sessionStorage.setItem('User',  responsejson.username);
+                userManager.setAuthToken(response.headers.get('x-auth'));
+                userManager.setLogin(responsejson.username)
                 location.reload();
             }
         });
@@ -46,12 +46,11 @@ function LoginUser()
 
 function Logout()
 {
-    reqInterface.deleteRequestFETCH('/users/logout', logoutprocc);
+    reqInterface.deleteRequestFETCH('/users/logout', true, logoutprocc);
 
     function logoutprocc()
     {
-        sessionStorage.removeItem('Token');
-        sessionStorage.removeItem('User');
+        userManager.logout();
         location.reload();
     }
 }

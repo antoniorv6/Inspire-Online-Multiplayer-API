@@ -1,11 +1,11 @@
 function checkIfLoggedIn()
 {
-    if(sessionStorage.getItem('Token')!=null)
+    if(sessionStorage.getItem('authToken')!=null)
     {
         document.getElementById('userforms').innerHTML = `<ul class="nav navbar-nav navbar-right">
             <li class="dropdown dropdown-hover">
             <a href="#!" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                ${sessionStorage.getItem('User')}<span class="label">welcome</span>
+                ${sessionStorage.getItem('user')}<span class="label">welcome</span>
             </a>
             </li>
             <li>

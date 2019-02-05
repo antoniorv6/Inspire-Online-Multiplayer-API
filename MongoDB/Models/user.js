@@ -32,7 +32,22 @@ var UserSchema = new mongoose.Schema({
             type: String,
             required: true
         }
+    }],
+
+    friends: [{
+        name:{
+            type: String,
+            required: true
+        }
+    }],
+
+    friendRequests: [{
+        name:{
+            type: String,
+            required: true
+        }
     }]
+
 });
 
 UserSchema.methods.generateAuthToken = function ()
@@ -55,6 +70,20 @@ UserSchema.methods.removeToken = function(token)
             tokens: {token}
         }
     });
+}
+
+UserSchema.methods.addFriend = function(newFriend)
+{
+    var user = this;
+    user.friends = user.friends.concat([{name: newFriend}]);
+    return user.save().then(()=>{return {added: true}});
+}
+
+UserSchema.methods.addFriendRequest = function(newFriend)
+{
+    var user = this;
+    user.friendRequests = user.friendRequests.concat([{name: newFriend}]);
+    return user.save().then(()=>{return {added: true}});
 }
 
 UserSchema.statics.findByToken = function(token)

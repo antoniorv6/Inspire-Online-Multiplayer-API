@@ -84,6 +84,35 @@ APIRouter.delete('/logout', authenticate, (request, response)=>{
 
 });
 
+APIRouter.post('/friend', authenticate, (request,response)=>{
+
+    User.findOne({username:request.body.userName}).then((user)=>{
+        
+        user.addFriendRequest(request.user.username).then((result)=>{
+            response.status(200).send(result);
+        },
+        ()=>{
+            response.status(404).send();
+        }, ()=>{
+        response.status(404).send({error: "User not found"});
+    });
+
+});
+
+});
+
+APIRouter.put('/friend', authenticate, (request,response)=>{
+    var user = request.body.user;
+    user.addFriend(request.body.newFriend).then((result)=>{
+        response.status(200).send(result);
+    },
+    ()=>{
+        response.status(400).send();
+    })
+});
+
+
+
 function registerUser(registerForm) 
 {
     var newUser = new User(
