@@ -72,6 +72,16 @@ UserSchema.methods.removeToken = function(token)
     });
 }
 
+UserSchema.methods.eraseFriendRequest = function(friendReq)
+{
+    var user = this;
+    return user.update({
+        $pull: {
+            friendRequests:{name:friendReq}
+        }
+    });
+}
+
 UserSchema.methods.addFriend = function(newFriend)
 {
     var user = this;

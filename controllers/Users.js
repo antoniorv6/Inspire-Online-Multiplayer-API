@@ -102,13 +102,28 @@ APIRouter.post('/friend', authenticate, (request,response)=>{
 });
 
 APIRouter.put('/friend', authenticate, (request,response)=>{
-    var user = request.body.user;
+    
+    var user = request.user;
     user.addFriend(request.body.newFriend).then((result)=>{
-        response.status(200).send(result);
+        user.eraseFriendRequest(request.body.newFriend).then((result)=>{
+            User.findOne({username:request.body.newFriend}).then((user)=>{
+
+                user.addFriend(request.user.username).then(()=>{
+                    response.status(200).send();
+                }, ()=>{response.status(400).send();})
+            
+            }, ()=>{
+                response.status(400).send();
+            })
+        },
+        ()=>{
+            response.status(400).send();
+        })
     },
     ()=>{
         response.status(400).send();
     })
+
 });
 
 
