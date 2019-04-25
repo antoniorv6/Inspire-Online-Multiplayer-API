@@ -60,7 +60,7 @@ APIRouter.post('/deleteRoom', (request,response)=>{
 
 });
 
-APIRouter.get('/users', (request,response)=>{
+APIRouter.post('/users', (request,response)=>{
     
     Room.findOne({roomID: request.body.roomID}).then((room)=>{
         response.status(200).send({users : room.usersconnected})

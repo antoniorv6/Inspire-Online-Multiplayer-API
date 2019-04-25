@@ -1,8 +1,8 @@
 const express = require('express');
 const hbs = require('hbs');
-var approot = require('app-root-path');
-var bodyParser = require('body-parser');
-var fs = require('fs');
+let approot = require('app-root-path');
+let bodyParser = require('body-parser');
+let fs = require('fs');
 
 var UserController = require('../controllers/Users');
 var RoomController = require('../controllers/Rooms');
@@ -50,5 +50,5 @@ API.post('/users/addFriend', (request,response)=>{
 });
 
 
-var port = process.env.PORT || 1137;
+let port = process.env.PORT || 1137;
 API.listen(port, ()=>{ console.log('Listening to port: ' + port) });
