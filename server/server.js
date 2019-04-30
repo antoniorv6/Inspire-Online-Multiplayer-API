@@ -6,6 +6,7 @@ let fs = require('fs');
 
 var UserController = require('../controllers/Users');
 var RoomController = require('../controllers/Rooms');
+var ScoreController = require('../controllers/ScoreCards');
 
 var API = express();
 
@@ -21,6 +22,7 @@ API.use(bodyParser.json());
 
 API.use('/users', UserController);
 API.use('/rooms', RoomController);
+API.use('/score', ScoreController);
 
 //##############################################################
 

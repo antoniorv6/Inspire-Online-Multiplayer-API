@@ -1,5 +1,6 @@
 var {mongoose} = require('../MongoDB/dbConnection');
 var {User}     = require('../MongoDB/Models/user');
+var {ScoreCard} = require('../MongoDB/Models/score');
 
 var express     = require('express');
 var APIRouter  = express.Router();
@@ -19,6 +20,7 @@ APIRouter.post('/register', (request, response)=>{
    var result = registerUser(request.body);
    result.then((result)=>
    {
+        registerPunctuationCard(request.body.login);
         return result.generateAuthToken().then((token)=>{
             
             var now = new Date().toString();
@@ -141,6 +143,16 @@ function registerUser(registerForm)
     var result = newUser.save();
 
     return result;
+}
+
+
+function registerPunctuationCard(userIdentification)
+{
+    var newUserScore = new ScoreCard({
+        userID: userIdentification
+    });
+
+    newUserScore.save();
 }
 
 module.exports = APIRouter;
