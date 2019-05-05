@@ -32,9 +32,6 @@ var ScoreSchema = new mongoose.Schema({
         usersPlaying: {
             type: String
         },
-        winner: {
-            type: String
-        },
         userPosition:{
             type: Number
         },
@@ -57,21 +54,20 @@ var ScoreSchema = new mongoose.Schema({
     }
 });
 
-ScoreSchema.methods.UpdateNormalMatchRegistryScore = function(newDate, newUsers, newWinner, newUserPosition, newMap, newUserTime)
+ScoreSchema.methods.UpdateNormalMatchRegistryScore = function(newDate, newUsers, newUserPosition, newMap, newUserTime)
 {
     var scoreCard = this;
-    scoreCard.matchRegistry = scoreCard.matchRegistry.concat([{date: newDate, usersPlaying: newUsers, winner: newWinner, userPosition: newUserPosition, map: newMap, userTime: newUserTime}]);
+    scoreCard.matchRegistry = scoreCard.matchRegistry.concat([{date: newDate, usersPlaying: newUsers, userPosition: newUserPosition, map: newMap, userTime: newUserTime}]);
     if(newUserPosition == 1)
         scoreCard.victories = scoreCard.victories + 1;
 
-    
-    return scoreCard.save().then(()=>{return true;});
+    return scoreCard.save().then(()=>{return true;}, (err)=>{console.log(err);});
 }
 
-ScoreSchema.methods.UpdateCompetitiveRegistryScore = function(newDate, newUsers, newWinner, newUserPosition, newMap, newUserTime)
+ScoreSchema.methods.UpdateCompetitiveRegistryScore = function(newDate, newUsers, newUserPosition, newMap, newUserTime)
 {
     var scoreCard = this;
-    scoreCard.matchRegistry = scoreCard.matchRegistry.concat([{date: newDate, usersPlaying: newUsers, winner: newWinner, userPosition: newUserPosition, map: newMap, userTime: newUserTime}]);
+    scoreCard.matchRegistry = scoreCard.matchRegistry.concat([{date: newDate, usersPlaying: newUsers, userPosition: newUserPosition, map: newMap, userTime: newUserTime}]);
     if(newUserPosition == 1)
     {
         scoreCard.victories = scoreCard.victories + 1;
@@ -120,24 +116,24 @@ ScoreSchema.methods.UpdateCompetitiveRegistryScore = function(newDate, newUsers,
     scoreCard.competitiveMatchesPlayed++;
     //-------------------------------------------
     
-    return scoreCard.save().then(()=>{return true;});
+    return scoreCard.save().then(()=>{return true;}, (err)=>{console.log(err);});
 }
 
-ScoreSchema.statics.UpdateUserNormalPunctuation = function(userID, newDate, newUsers, newWinner, newUserPosition, newMap, newUserTime)
+ScoreSchema.statics.UpdateUserNormalPunctuation = function(userID, newDate, newUsers, newUserPosition, newMap, newUserTime)
 {
     var scoregen = this;
 
     return scoregen.findOne({userID}).then((scoreCard)=>{
-        return scoreCard.UpdateNormalMatchRegistryScore(newDate, newUsers, newWinner, newUserPosition, newMap, newUserTime);
+        return scoreCard.UpdateNormalMatchRegistryScore(newDate, newUsers, newUserPosition, newMap, newUserTime);
     });
 }
 
-ScoreSchema.statics.UpdateUserCompetitivePunctuation = function(userID, newDate, newUsers, newWinner, newUserPosition, newMap, newUserTime)
+ScoreSchema.statics.UpdateUserCompetitivePunctuation = function(userID, newDate, newUsers, newUserPosition, newMap, newUserTime)
 {
     var scoregen = this;
 
     return scoregen.findOne({userID}).then((scoreCard)=>{
-        return scoreCard.UpdateCompetitiveRegistryScore(newDate, newUsers, newWinner, newUserPosition, newMap, newUserTime);
+        return scoreCard.UpdateCompetitiveRegistryScore(newDate, newUsers, newUserPosition, newMap, newUserTime);
     });
 }
 

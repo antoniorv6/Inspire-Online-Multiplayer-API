@@ -10,15 +10,15 @@ APIRouter.post('/newNormalResult', (request, response)=>{
     let userID = requestData.userID;
     let date   = Date.now();
     let usersParticipating = requestData.contestants;
-    let winner = requestData.winner;
     let userPosition = requestData.userPos;
     let mapPlayed = requestData.map;
     let userTime = requestData.userTime;
 
-    ScoreCard.UpdateUserNormalPunctuation(userID, date, usersParticipating, winner, userPosition, mapPlayed, userTime).then((result)=>{
-        response.send({'updated':true})
+    ScoreCard.UpdateUserNormalPunctuation(userID, date, usersParticipating, userPosition, mapPlayed, userTime).then((result)=>{
+        response.send({'result':true})
     },
     (err)=>{
+        console.log(err);
         response.status(400).send({'result':false});
     });
 });
@@ -29,12 +29,11 @@ APIRouter.post('/newCompetitiveResult', (request, response)=>{
     let userID = requestData.userID;
     let date   = Date.now();
     let usersParticipating = requestData.contestants;
-    let winner = requestData.winner;
     let userPosition = requestData.userPos;
     let mapPlayed = requestData.map;
     let userTime = requestData.userTime;
 
-    ScoreCard.UpdateUserCompetitivePunctuation(userID, date, usersParticipating, winner, userPosition, mapPlayed, userTime).then((result)=>{
+    ScoreCard.UpdateUserCompetitivePunctuation(userID, date, usersParticipating, userPosition, mapPlayed, userTime).then((result)=>{
         response.send({'updated':true})
     },
     (err)=>{
