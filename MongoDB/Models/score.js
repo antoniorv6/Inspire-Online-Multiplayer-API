@@ -122,7 +122,7 @@ ScoreSchema.methods.UpdateCompetitiveRegistryScore = function(newDate, newUsers,
 ScoreSchema.statics.UpdateUserNormalPunctuation = function(userID, newDate, newUsers, newUserPosition, newMap, newUserTime)
 {
     var scoregen = this;
-
+    console.log(userID);
     return scoregen.findOne({userID}).then((scoreCard)=>{
         return scoreCard.UpdateNormalMatchRegistryScore(newDate, newUsers, newUserPosition, newMap, newUserTime);
     });

@@ -15,6 +15,7 @@ APIRouter.post('/newNormalResult', (request, response)=>{
     let userTime = requestData.userTime;
 
     console.log(userID);
+    console.log(requestData);
 
     ScoreCard.UpdateUserNormalPunctuation(userID, date, usersParticipating, userPosition, mapPlayed, userTime).then((result)=>{
         response.send({'result':true})
