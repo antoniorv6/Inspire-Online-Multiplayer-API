@@ -92,15 +92,17 @@ APIRouter.post('/invite', (request, response)=>{
 
 APIRouter.post('/acceptInvitation', (request,response)=>{
     var room = request.body.room;
-    var user = request.body.user
+    var user = request.body.user;
+    user = user.replace(/\s/g, '');
     Invitation.deleteMany({invited: user}).then((result)=>{
+        console.log(result);
         response.status(200).send({"accepted":true});
     }, (error)=>{
         response.status(400).send();
     });
 });
 
-APIRouter.get('/invitations', (request,response)=>{
+APIRouter.post('/invitations', (request,response)=>{
     Invitation.find({invited:request.body.user}).then((result)=>{
         response.status(200).send(result);
     },()=>{

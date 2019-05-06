@@ -35,6 +35,8 @@ APIRouter.post('/newCompetitiveResult', (request, response)=>{
     let mapPlayed = requestData.map;
     let userTime = requestData.userTime;
 
+    userID = userID.replace(/\s/g, '');
+
     ScoreCard.UpdateUserCompetitivePunctuation(userID, date, usersParticipating, userPosition, mapPlayed, userTime).then((result)=>{
         response.send({'updated':true})
     },

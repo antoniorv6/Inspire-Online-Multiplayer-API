@@ -136,6 +136,15 @@ UserSchema.statics.findByCredentials = function(username, password)
     });
 };
 
+UserSchema.statics.findFriends = function(username)
+{
+    var User = this;
+
+    return User.findOne({username}).then((result)=>{
+        return result.friends;
+    });
+}
+
 UserSchema.pre('save', function (next){
     var user = this;
 

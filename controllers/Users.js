@@ -16,6 +16,17 @@ APIRouter.get('/profile', authenticate, (request, response) => {
     response.send('yay');    
 });
 
+APIRouter.post('/getfriends', (request, response) => {
+
+    let username = request.body.userID;
+    username = username.replace(/\s/g, '');
+
+    User.findFriends(username).then((result)=>{
+        response.send({friends: result});
+    });
+
+});
+
 APIRouter.post('/register', (request, response)=>{
    var result = registerUser(request.body);
    result.then((result)=>
