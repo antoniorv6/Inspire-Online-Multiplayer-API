@@ -75,6 +75,9 @@ APIRouter.post('/invite', (request, response)=>{
     var user = request.body.invited;
     var userInvitator = request.body.invitator;
     var room = request.body.roomID;
+    user = user.replace(/\s/g, '');
+    userInvitator = userInvitator.replace(/\s/g, '');
+    
     var newInvitation = new Invitation(
                 {
                     invited: user,
