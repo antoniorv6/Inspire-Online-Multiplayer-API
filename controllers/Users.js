@@ -22,7 +22,7 @@ APIRouter.post('/getfriends', (request, response) => {
     username = username.replace(/\s/g, '');
 
     User.findFriends(username).then((result)=>{
-        response.send({friends: result});
+        response.send({users: result});
     });
 
 });
