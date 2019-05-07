@@ -105,7 +105,9 @@ APIRouter.post('/acceptInvitation', (request,response)=>{
 });
 
 APIRouter.post('/invitations', (request,response)=>{
-    Invitation.findOne({invited:request.body.user}).then((result)=>{
+    let user = request.body.user;
+    user = user.replace(/\s/g, '');
+    Invitation.findOne({invited:user}).then((result)=>{
         response.status(200).send(result);
     },()=>{
         response.status(400).send();
