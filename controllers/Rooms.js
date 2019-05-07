@@ -96,7 +96,7 @@ APIRouter.post('/acceptInvitation', (request,response)=>{
     var room = request.body.room;
     var user = request.body.user;
     user = user.replace(/\s/g, '');
-    Invitation.deleteOne({invited: user}).then((result)=>{
+    Invitation.deleteMany({invited: user}).then((result)=>{
         console.log(result);
         response.status(200).send({"accepted":true});
     }, (error)=>{
