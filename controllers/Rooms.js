@@ -77,7 +77,6 @@ APIRouter.post('/invite', (request, response)=>{
     var room = request.body.roomID;
     user = user.replace(/\s/g, '');
     userInvitator = userInvitator.replace(/\s/g, '');
-    
     var newInvitation = new Invitation(
                 {
                     invited: user,
@@ -97,7 +96,7 @@ APIRouter.post('/acceptInvitation', (request,response)=>{
     var room = request.body.room;
     var user = request.body.user;
     user = user.replace(/\s/g, '');
-    Invitation.deleteMany({invited: user}).then((result)=>{
+    Invitation.deleteOne({invited: user}).then((result)=>{
         console.log(result);
         response.status(200).send({"accepted":true});
     }, (error)=>{
@@ -106,7 +105,7 @@ APIRouter.post('/acceptInvitation', (request,response)=>{
 });
 
 APIRouter.post('/invitations', (request,response)=>{
-    Invitation.find({invited:request.body.user}).then((result)=>{
+    Invitation.findOne({invited:request.body.user}).then((result)=>{
         response.status(200).send(result);
     },()=>{
         response.status(400).send();
